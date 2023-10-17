@@ -1,0 +1,92 @@
+h1{
+    text-align: center;
+    line-height: 10vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    color: black;
+}
+
+
+form {
+    margin: 20px; /* Add margin around the entire form */
+  }
+  
+  label{
+    margin-bottom: 10px; /* Add margin between form elements */
+    padding: 8px; /* Add padding to form elements */
+  }
+
+  input,
+  textarea {
+    margin-bottom: 10px; /* Add margin between form elements */
+    padding: 8px; /* Add padding to form elements */
+    background-color: #f0f0f0; /* Add a light background color */
+    border: 1px solid #ccc; /* Add a soft border */
+
+  }
+  
+
+button {
+    background-color: #007bff; /* Set a contrasting background color */
+    color: #fff; /* Set text color to white */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+    margin: 10px;
+}
+  
+/* Hover effect */
+button:hover{
+    background-color: grey;
+}
+
+#recipeDisplayArea {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Gap between grid items */
+    padding: 20px;
+  }
+
+  .recipe {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.recipe p {
+    font-size: 16px;
+    margin: 5px 0;
+    color: #555;
+}
+
+img {
+    height: 200px;
+    width: 300px;
+    display: grid;
+    margin: 10px;
+}
+
+
+  
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    /* Adjust styles for mobile devices */
+    body {
+      font-size: 16px; /* Adjust font size for smaller screens */
+    }
+  
+  }
+  
+
+  

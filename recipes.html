@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Recipe Keeper</h1>
+    <h2>Add recipe</h2>
+    <form id="recipe-form">
+        <label for="recipeName">Recipe Name</label>
+        <input type="text" id="recipeName" name="recipeName" required><br>
+
+        <label for="recipeImage">Recipe Image URL:</label>
+        <input type="url" id="recipeImage" name="recipeImage" placeholder="http://example.com/my-dish.jpg"><br>
+
+
+        <label for="ingredients">Ingredients</label>
+        <textarea id="ingredients" name="ingredients" placeholder="List ingredients separated by commas"
+            required></textarea><br>
+
+        <label for="recipeSteps">Steps for preparation</label>
+        <textarea id="recipeSteps" name="recipeSteps" placeholder="Steps for preparation"></textarea><br>
+
+        <button id="submit">Add Recipe</button>
+
+    </form>
+
+    <h2>Your recipes</h2>
+    <div id="recipeDisplayArea"></div><br>
+
+    <script>
+        // Reference the form element
+        let recipeForm = document.getElementById('recipe-form');
+
+        // Reference the input and textarea elements
+        let recipeName = document.getElementById('recipeName');
+        let ingredients = document.getElementById('ingredients');
+        let recipeSteps = document.getElementById('recipeSteps');
+        let displayArea = document.getElementById('recipeDisplayArea');
+        let recipeImage = document.getElementById('recipeImage')
+
+        // Create an array for recipes
+        let recipes = [];
+
+        // Set up the Event Listener
+        recipeForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Capture values from input fields
+            let enteredRecipeName = recipeName.value;
+            let enteredIngredients = ingredients.value;
+            let enteredSteps = recipeSteps.value;
+            let enteredImageUrl = recipeImage.value;
+
+            // Create a new recipe object
+            let newRecipe = {
+                name: enteredRecipeName,
+                ingredients: enteredIngredients,
+                steps: enteredSteps,
+                imageUrl: enteredImageUrl
+            };
+
+            // Add the new recipe to the recipes array
+            recipes.push(newRecipe);
+
+            // Call the displayRecipe function to display the new recipe
+            displayRecipe(newRecipe);
+
+            // Clear input fields
+            recipeName.value = '';
+            ingredients.value = '';
+            recipeSteps.value = '';
+            recipeImage.value = '';
+        });
+
+        function displayRecipe(recipe, index) {
+            // create a div for the new recipe
+            let recipeDiv = document.createElement('div');
+            recipeDiv.classList.add('recipe');
+
+            // Create elements for recipe name, ingredients, and steps
+            let recipeNameElement = document.createElement('h3');
+            recipeNameElement.textContent = recipe.name;
+
+            let ingredientsElement = document.createElement('p');
+            ingredientsElement.textContent = "Ingredients: " + recipe.ingredients;
+
+            let stepsElement = document.createElement('p');
+            stepsElement.textContent = "Steps: " + recipe.steps;
+
+            // create a delete button
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = "Delete";
+
+            // add an event handler, as an inline function
+            deleteButton.onclick = function () {
+                deleteRecipe(index);
+            };
+
+
+            // Append recipe info elements to the recipe div
+            recipeDiv.appendChild(recipeNameElement);
+            recipeDiv.appendChild(ingredientsElement);
+            recipeDiv.appendChild(stepsElement);
+            recipeDiv.appendChild(deleteButton);
+
+            // Check if a recipe has an image URL
+            if (recipe.imageUrl) {
+                let imageElement = document.createElement('img');
+                imageElement.src = recipe.imageUrl;
+                recipeDiv.appendChild(imageElement);
+            }
+
+            // Add the new recipe div to the display area
+            displayArea.appendChild(recipeDiv);
+        }
+
+        function deleteRecipe(index) {
+            // Remove the recipe at the specified index from the array
+            if (index >= 0 && index < recipes.length) {
+                recipes.splice(index, 1);
+            }
+
+            // Refresh the display by clearing the current displayArea and re-displaying all recipes
+            clearDisplay();
+            displayAllRecipes();
+        }
+
+        function clearDisplay() {
+            // Clear the displayArea by removing all its child elements
+            while (displayArea.firstChild) {
+                displayArea.removeChild(displayArea.firstChild);
+            }
+        }
+
+        function displayAllRecipes() {
+            // Display all recipes from the recipes array
+            for (let i = 0; i < recipes.length; i++) {
+                displayRecipe(recipes[i], i);
+            }
+        }
+
+        // Save the recipes array to local storage
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+
+        // Check if there are saved recipes in local storage
+        if (localStorage.getItem('recipes')) {
+            // Load the saved recipes into the application
+            recipes = JSON.parse(localStorage.getItem('recipes'));
+
+            // Display the loaded recipes on the page (you may need to call your display function here)
+            displayAllRecipes();
+        }
+
+        // Delete a recipe from the array (assuming you have an index)
+        recipes.splice(index, 1);
+
+        // Update the saved recipes in local storage
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+
+
+
+
+    </script>
+</body>
+
+</html>
